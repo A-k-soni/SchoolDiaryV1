@@ -18,19 +18,6 @@ public class QueryDto {
   String message;
   int roleid;
 
-    @Override
-    public String toString() {
-        return "QueryDto{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", contactPersonEmail='" + contactPersonEmail + '\'' +
-                ", subject='" + subject + '\'' +
-                ", message='" + message + '\'' +
-                ", roleid=" + roleid +
-                ", userid='" + userid + '\'' +
-                '}';
-    }
-
     public int getRoleid() {
         return roleid;
     }
@@ -81,4 +68,24 @@ public class QueryDto {
         this.message = message;
     }
 
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
+
+    @Override
+    public String toString() {
+        return "QueryDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", contactPersonEmail='" + contactPersonEmail + '\'' +
+                ", subject='" + subject + '\'' +
+                ", message='" + message + '\'' +
+                ", roleid=" + roleid +
+                ", userid='" + userid + '\'' +
+                '}';
+    }
 }

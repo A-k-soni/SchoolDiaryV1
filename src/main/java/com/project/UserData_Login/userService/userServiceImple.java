@@ -109,8 +109,7 @@ public class userServiceImple implements  userService{
             System.out.println("falg=0");
             r=addUser(ud1);
 
-            mail.send(ud1.getEmail_id(),"School E Diary" , "Registration Successful");
-            System.out.println("ud1");
+                      System.out.println("ud1");
                 if (ud2.getfName() == null) {
             } else {
               r= addUser(ud2);
@@ -139,6 +138,7 @@ public class userServiceImple implements  userService{
                 fs.addFaculty(f);
             }
         }
+        mail.send(ud1.getEmail_id(),"School E Diary" , "Registration Successful");
         return r;
     }
 
@@ -187,6 +187,12 @@ public class userServiceImple implements  userService{
     @Override
     public void aprove(List<UserData> ud) {
         ur.saveAll(ud);
+    }
+
+    @Override
+    public UserData updateUser(UserData ud) {
+
+       return ur.save(ud);
     }
 
     @Override

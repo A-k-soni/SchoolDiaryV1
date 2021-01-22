@@ -35,8 +35,9 @@ public class NoticeController {
 
 
     @PostMapping(value = "AddNotice")
-    public void addNotice(Notice_Table nt){
-         service.addNotice(nt);
+    public void addNotice(@RequestBody Notice_Table nt){
+        System.out.println(nt);
+        service.addNotice(nt);
     }
 
 }

@@ -16,7 +16,7 @@ public interface userService {
     public List<UserData> getAll();
     public UserData UserLogin(UserData user);
     public void aprove(List<UserData> ud);
-
+    public UserData updateUser(UserData ud);
 
     public int forget(UserData userdata);
 }

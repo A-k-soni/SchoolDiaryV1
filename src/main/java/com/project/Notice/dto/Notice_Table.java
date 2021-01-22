@@ -16,8 +16,17 @@ public class Notice_Table {
     int student_class;
     @Column(nullable = false)
     String date_from;
-    @Column(nullable = false)
-    String date_to;
+
+    @Override
+    public String toString() {
+        return "Notice_Table{" +
+                "notice_id=" + notice_id +
+                ", msg='" + msg + '\'' +
+                ", student_class=" + student_class +
+                ", date_from='" + date_from + '\'' +
+                ", date_to='" + date_to + '\'' +
+                '}';
+    }
 
     public int getNotice_id() {
         return notice_id;
@@ -59,14 +68,8 @@ public class Notice_Table {
         this.date_to = date_to;
     }
 
-    @Override
-    public String toString() {
-        return "Notice_Table{" +
-                "notice_id=" + notice_id +
-                ", msg='" + msg + '\'' +
-                ", student_class=" + student_class +
-                ", date_from='" + date_from + '\'' +
-                ", date_to='" + date_to + '\'' +
-                '}';
-    }
+    @Column(nullable = false
+    )
+    String date_to;
+
 }

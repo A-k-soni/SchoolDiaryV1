@@ -61,4 +61,11 @@ public class userController {
 
 
 
+    @PostMapping(value ="updateUser")
+    public UserData modify(@RequestBody UserData ud){
+
+        return UserService.updateUser(ud);
+    }
+
+
 }
