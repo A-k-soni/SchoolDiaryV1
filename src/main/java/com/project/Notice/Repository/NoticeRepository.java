@@ -20,5 +20,7 @@ public interface NoticeRepository extends JpaRepository<Notice_Table,Integer> {
     @Query(value="select * from Notice_table where student_class=?1",nativeQuery = true)
     public List<Notice_Table> ClassNotice(int student_class);
 
+    @Query(value = "select * from Notice_table where student_class !=0",nativeQuery = true)
+    public List<Notice_Table> classNoticeForAdmin();
 
 }

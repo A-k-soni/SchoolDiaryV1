@@ -11,4 +11,5 @@ public interface result_service {
     public List<Result_Table> getResult(String uid);
 
 
+    List<Result_Table> getAlreadyAppliedExams(int cls);
 }

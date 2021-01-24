@@ -8,11 +8,9 @@ import com.project.UserData_Login.dto.UserData;
 import com.project.UserData_Login.repository.userRepository;
 import com.project.faculty.dto.faculty;
 import com.project.faculty.facultyService.facultyService;
-import org.jooq.User;
+import com.project.parentDetails.service.parentServiceImple;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailSender;
 import org.springframework.stereotype.Service;
-
 import javax.mail.MessagingException;
 import java.time.Year;
 import java.util.ArrayList;
@@ -21,7 +19,8 @@ import java.util.List;
 @Service
 public class userServiceImple implements  userService{
 
-
+    @Autowired
+    private parentServiceImple psi;
     @Autowired
     private MailFeature mail;
     @Autowired
@@ -71,6 +70,7 @@ public class userServiceImple implements  userService{
             ud2.setCountry(udc.getCountry());
             String pass_f = String.valueOf(udc.getMobile_no_f().hashCode());
             ud2.setPassword(pass_f);
+            ud2.setGender("Male");
             //======update UI and update  this part===
             ud2.setSecurity_q_id(udc.getSecurityQuestionId_F());
             ud2.setSecurity_q_A(udc.getsQanswer_F());
@@ -96,26 +96,30 @@ public class userServiceImple implements  userService{
         }
         for(int i=0;i<li.size();i++){
             if(li.get(i).getEmail_id().equals(ud1.getEmail_id()) || li.get(i).getMobile_no().equals(ud1.getMobile_no())){
-                System.out.println(li.get(i).getMobile_no());
+              //  System.out.println(li.get(i).getMobile_no());
                 flag++;
             }
+
         }
         if(flag!=0){
-            System.out.println("flag >1");
+          //  System.out.println("flag >1");
             flag =0;
             return null;
         }else{
             flag=0;
-            System.out.println("falg=0");
+          //  System.out.println("falg=0");
             r=addUser(ud1);
 
-                      System.out.println("ud1");
+               //       System.out.println("ud1");
                 if (ud2.getfName() == null) {
             } else {
+                    System.out.println("father");
               r= addUser(ud2);
-             System.out.println("ud2");
+                    mail.send(ud2.getEmail_id(),"School E Diary" , "Registration Successful,Your first time password is your mobile number for login");
+              psi.insertParent(ud2);
+            // System.out.println("ud2");
             }
-            System.out.println(" *** "+udc.getStudent_class());
+           // System.out.println(" *** "+udc.getStudent_class());
             if(udc.getStudent_class()!= 0){
                 student_table st= new student_table();
                 st.setUser_id_parent(ud2.getUserId());
@@ -125,10 +129,11 @@ public class userServiceImple implements  userService{
                 st.setGender(udc.getGender());
                 st.setDOB(udc.getDob());
                 st.setStudent_class(udc.getStudent_class());
+                System.out.println("father student");
                 sr.addDetails(st);
             }
             if(udc.getFaculty_class()!=0){
-                System.out.println("hello");
+             //   System.out.println("hello");
                 faculty f= new faculty();
                 f.setDob(udc.getDob());
                 f.setGender(udc.getGender());
@@ -160,29 +165,41 @@ public class userServiceImple implements  userService{
 
     @Override
     public void modifyUser(UserData user) {
-
     }
-
     @Override
     public List<UserData> getAll() {
-
        return ur.findAll();
     }
 
     @Override
-    public UserData UserLogin(UserData user){
+    public UserData UserLogin(UserData user) {
 
-        String pass = String.valueOf(user.getPassword().hashCode());
-        user.setPassword(pass);
-        if(user.getEmail_id()!=null) {
-        user=ur.loginE(user.getEmail_id(), user.getPassword());
-        return user;
-    }else if(user.getMobile_no()!=null){
-        user=ur.loginM(user.getMobile_no(),user.getPassword());
-        return user;
+        List<UserData> li = new ArrayList<>();
+        Iterable<UserData> it = ur.findAll();
+        Iterator<UserData> itr = it.iterator();
+        while (itr.hasNext()) {
+            li.add(itr.next());
+        }
+        for (int i = 0; i < li.size(); i++) {
+            if (li.get(i).getEmail_id().equals(user.getEmail_id()) || li.get(i).getMobile_no().equals(user.getMobile_no())) {
+                String pass = String.valueOf(user.getPassword().hashCode());
+                user.setPassword(pass);
+                if (user.getEmail_id() != null) {
+                    user = ur.loginE(user.getEmail_id(), user.getPassword());
+
+                    if (user != null) {
+                        return user;
+                    }
+                }
+            }
+
+
+
         }
         return null;
+
     }
+
 
     @Override
     public void aprove(List<UserData> ud) {
@@ -199,7 +216,7 @@ public class userServiceImple implements  userService{
     public int forget(UserData userdata) {
 
         String pass = String.valueOf(userdata.getPassword().hashCode());
-        System.out.println(pass+" "+userdata.getEmail_id()+" "+userdata.getMobile_no()+" "+userdata.getSecurity_q_id()+" "+userdata.getSecurity_q_A());
+       // System.out.println(pass+" "+userdata.getEmail_id()+" "+userdata.getMobile_no()+" "+userdata.getSecurity_q_id()+" "+userdata.getSecurity_q_A());
         return ur.updatePassword(pass,userdata.getEmail_id(),userdata.getMobile_no(),userdata.getSecurity_q_id(),userdata.getSecurity_q_A());
     }
 }

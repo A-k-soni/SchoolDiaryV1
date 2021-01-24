@@ -17,10 +17,10 @@ public class faculty_controller {
 
     @GetMapping(value = "get_class/{id}")
     public faculty getcls(@PathVariable String id){
-        System.out.println(id);
+       // System.out.println(id);
         faculty fd =new faculty();
        fd=fsi.getClass(id);
-        System.out.println(fd);
+       // System.out.println(fd);
         return  fd;
     }
 

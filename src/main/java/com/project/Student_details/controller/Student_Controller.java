@@ -43,7 +43,7 @@ public class Student_Controller {
        student_table stu = new student_table();
         student_class =sserService.getStudentclass(pId);
         stu.setStudent_class(student_class);
-        System.out.println("==>"+student_class);
+       // System.out.println("==>"+student_class);
         return stu;
     }
 

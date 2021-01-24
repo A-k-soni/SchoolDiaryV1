@@ -12,4 +12,6 @@ public interface NoticeService {
     public List<Notice_Table> ClassNotice(int student_class, String ToDate);
     public void addNotice(Notice_Table nt);
     public List<Notice_Table> AllNotice();
+
+    List<Notice_Table> ClassNoticeForAdmin(String date);
 }

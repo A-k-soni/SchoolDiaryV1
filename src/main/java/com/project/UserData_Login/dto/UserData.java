@@ -3,6 +3,8 @@ package com.project.UserData_Login.dto;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
+//import javax.validation;
 
 @Entity
 public class UserData {
@@ -101,6 +103,7 @@ public class UserData {
     String userId;
     @Column(nullable = false)
     String fName;
+    @Size(min = 2)
     @Column(nullable = false)
     String lName;
     @Column(nullable = false)

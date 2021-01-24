@@ -1,5 +1,7 @@
 package com.project.Notice.controller;
 import java.util.List;
+
+import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.project.Notice.dto.Notice_Table;
@@ -14,16 +16,16 @@ public class NoticeController {
     @RequestMapping(value = "/notice", method = RequestMethod.POST)
     @ResponseBody
     public List<Notice_Table> GNotice(@RequestBody Notice_Table notice) {
-        System.out.println(notice.getStudent_class() + " " + notice.getDate_to()+ " " + notice.getNotice_id());
-        System.out.println(notice);
+      //  System.out.println(notice.getStudent_class() + " " + notice.getDate_to()+ " " + notice.getNotice_id());
+      //  System.out.println(notice);
         return service.GlobalNotice(notice.getDate_to());
     }
 
     @RequestMapping(value = "/notice/class", method = RequestMethod.POST)
     @ResponseBody
     public List<Notice_Table> CNotice(@RequestBody Notice_Table notice) {
-        System.out.println(notice.getStudent_class() + " " + notice.getDate_to()+ " " + notice.getNotice_id());
-        System.out.println(notice);
+      //  System.out.println(notice.getStudent_class() + " " + notice.getDate_to()+ " " + notice.getNotice_id());
+      // System.out.println(notice);
         return service.ClassNotice(notice.getStudent_class(),notice.getDate_to());
     }
 
@@ -36,8 +38,16 @@ public class NoticeController {
 
     @PostMapping(value = "AddNotice")
     public void addNotice(@RequestBody Notice_Table nt){
-        System.out.println(nt);
+     //   System.out.println(nt);
         service.addNotice(nt);
+    }
+
+    @GetMapping(value = "getClassNoticesForAdmin/{date}")
+    public List<Notice_Table>allClassNoticeForAdmin(@PathVariable String date){
+
+        return service.ClassNoticeForAdmin(date);
+
+
     }
 
 }

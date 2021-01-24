@@ -45,7 +45,7 @@ public class AttendanceServiceimple implements  AttendanceService{
         while(itr.hasNext()){
             attendaceList.add(itr.next()) ;
         }
-        System.out.println(attendaceList);
+       // System.out.println(attendaceList);
         return  attendaceList;
 
 
@@ -60,7 +60,7 @@ public class AttendanceServiceimple implements  AttendanceService{
         }
 
         for(int i = 0 ; i<list.size();i++){
-            System.out.println(list.get(i));
+           // System.out.println(list.get(i));
         }
 
 

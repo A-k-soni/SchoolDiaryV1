@@ -10,5 +10,6 @@ public interface ResultRepo extends JpaRepository<Result_Table ,Integer> {
 
         @Query(value ="select * from result_table where student_id =?1",nativeQuery = true)
         public List<Result_Table> getRes(String uid);
-
+        @Query(value = "select  * from result_table where student_class =?1",nativeQuery = true)
+        public List<Result_Table> getAlreadyAppliedExams(int cls);
 }
